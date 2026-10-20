@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: "Svgforge: Diagrams as code: deterministic SVG figures with lint gates, drawn by agents."
+type: software
+authors:
+  - family-names: Parikh
+    given-names: Naman
+repository-code: "https://github.com/naman10parikh/svgforge"
+license: MIT
+version: "0.1.0"
+abstract: "Diagrams as code: deterministic SVG figures with lint gates, drawn by agents."
+keywords: ["agent-native", "svg", "diagrams", "diagrams-as-code"]
