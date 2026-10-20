@@ -170,7 +170,7 @@ Every project in this fleet is graded on the same 11 harness components and on s
 | Component | Grade | Where |
 | --- | --- | --- |
 | Identity | ✅ | identity/SOUL.md:7 + identity/BRAND.md:5 |
-| Memory | ✅ | memory/MEMORY.md:1 + scripts/memory_search.py:43 |
+| Memory | ✅ | memory/MEMORY.md:1 + scripts/memory_search.py:49 |
 | Skills | ✅ | skills/draw-a-figure/SKILL.md:1 |
 | Tools/CLIs | ✅ | pyproject.toml:26 + src/svgforge/cli.py:30 |
 | Hooks | ✅ | .claude/settings.json:4 + hooks/hooks.json:4 |
