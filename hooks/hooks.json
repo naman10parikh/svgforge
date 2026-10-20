@@ -1,0 +1,16 @@
+{
+  "description": "svgforge lint gate: after a Write or Edit to an .svg file, run the lint gates and show any problem to the agent.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/svg_lint_hook.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

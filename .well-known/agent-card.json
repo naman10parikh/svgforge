@@ -1,0 +1,36 @@
+{
+  "name": "Svgforge",
+  "description": "Diagrams as code: deterministic SVG figures with lint gates, drawn by agents.",
+  "url": "https://github.com/naman10parikh/svgforge",
+  "version": "0.1.0",
+  "provider": {
+    "organization": "Naman Parikh",
+    "url": "https://github.com/naman10parikh"
+  },
+  "capabilities": {
+    "streaming": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "draw-a-figure",
+      "name": "draw-a-figure",
+      "description": "When a document needs a new figure: search, write the spec, build, lint, look at the PNG, commit."
+    },
+    {
+      "id": "ascii-to-figure",
+      "name": "ascii-to-figure",
+      "description": "When an ASCII diagram in a document should become a figure, with every label kept."
+    },
+    {
+      "id": "figure-review",
+      "name": "figure-review",
+      "description": "Before merging a figure change: lint, freshness, a look at the picture and an alt-text check."
+    }
+  ]
+}

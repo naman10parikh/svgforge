@@ -1,0 +1,13 @@
+{
+  "about": "Golden tasks for the lint gates: each bad fixture must be flagged with exactly its rule, and each good fixture and bundled example must pass. Binary pass or fail.",
+  "bad": {
+    "font-floor.svg": ["font-floor"],
+    "tofu.svg": ["tofu"],
+    "alt.svg": ["alt"],
+    "outside.svg": ["outside"],
+    "collapsed.svg": ["collapsed"],
+    "xml.svg": ["xml"],
+    "no-text.svg": ["no-text"]
+  },
+  "good": ["minimal.svg"]
+}

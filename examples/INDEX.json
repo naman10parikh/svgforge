@@ -1,0 +1,34 @@
+{
+  "generator": "svgforge",
+  "regenerate": "svgforge build src/svgforge/examples --out examples",
+  "count": 3,
+  "figures": [
+    {
+      "id": "loop",
+      "title": "An improvement loop",
+      "doc": "",
+      "anchor": "",
+      "file": "loop.svg",
+      "alt": "A loop of four steps drawn clockwise around its cadence, every night and on every push. Run the evals: tests, lint gates and golden tasks run on a fresh machine, and a failure is a finding too. An arrow labelled results leads to Find a gap: compare the results with the last run and look for what the rules still miss. An arrow labelled a finding leads to Propose a fix: write the change and the evidence for it, open an issue, never merge. An arrow labelled a proposal leads to A person reviews, marked as the gate: they merge what holds up and close what does not, and every change is a commit, so any step can be undone. An arrow labelled merged or closed leads back to Run the evals. A bar along the bottom says the loop proposes and a person decides: it never merges by itself.",
+      "bytes": 7675
+    },
+    {
+      "id": "pipeline",
+      "title": "How a figure is made",
+      "doc": "",
+      "anchor": "",
+      "file": "pipeline.svg",
+      "alt": "A left-to-right pipeline of five steps for making a figure with svgforge. Spec: a Python file describes cards, bands and arrows, and text widths are measured, not guessed. Render: svgforge build writes one SVG per figure, and the same spec always gives the same bytes. Lint, marked as the gate: it fails text under 11 pixels, text outside the canvas, glyphs that render as boxes, and empty alt text. Look: the figure is rendered to PNG and read, to catch overlaps and clipping by eye. Commit: the SVG, INDEX.json and the gallery are committed together, and CI runs the build with --check so no figure goes stale. Under each step sits what it produces: figures/name.py, diagrams/name.svg, zero problems, name.png (not committed), and one commit. A curved arrow runs from Look back to Spec, labelled: fix the spec, never the SVG.",
+      "bytes": 10147
+    },
+    {
+      "id": "stack",
+      "title": "A self-improving tool, layer by layer",
+      "doc": "",
+      "anchor": "",
+      "file": "stack.svg",
+      "alt": "A stack of five layers that make up a self-improving tool, read from top to bottom, resting on Git. Surfaces: how people and agents reach it, through the command line, an MCP server, skills, a plugin and an agent card. Engine: the deterministic core, where the same input always gives the same output: measure, wrap, place, render. Gates, the highlighted layer, marked nothing ships without them: checks that stop a bad result before anyone relies on it, namely lint, unit tests, golden tasks and a stale check. Memory: what it has learned, kept as rules it can search, in MEMORY.md, LEARNINGS.md and a BM25 search. Runtime: where it runs, away from your own machine, on a CI runner or an E2B sandbox, with a run log. A bracket on the right groups all five layers as one repository, versioned together. The base bar reads Git: every change is a commit you can revert.",
+      "bytes": 12554
+    }
+  ]
+}

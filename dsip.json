@@ -1,0 +1,33 @@
+{
+  "dsip": "0.1",
+  "product": "svgforge",
+  "levels": ["agent"],
+  "domains": {
+    "lint-coverage": "does every lint rule still catch its bad fixture, and does every good figure still pass?",
+    "determinism": "does the same spec still give byte-identical SVGs, three builds in a row?",
+    "measurement": "does every glyph used in the figure corpus have a measured width, or is it falling back?",
+    "freshness": "do the committed example figures still match their specs?"
+  },
+  "loop": {
+    "cadence": "nightly",
+    "steps": ["run-evals", "read-corpus", "propose", "validate", "ship"]
+  },
+  "selection": "performance",
+  "eval": {
+    "rubric": "evals/run.py: L1 structural (examples build, lint clean, byte-identical pass^3, committed examples current) and L2 golden tasks (evals/golden.json: each bad fixture flagged with exactly its rule, F1 1.0), plus an MCP round trip; blocking in .github/workflows/ci.yml on every push and pull request",
+    "gate": "unit-tests-pass && evals-pass && no-regression",
+    "noSelfGrading": true
+  },
+  "snapback": {
+    "granularity": ["skill", "employee"],
+    "vcs": "git"
+  },
+  "externalIntelligence": {
+    "enabled": false,
+    "note": "the loop reads only this repository and the figures it is pointed at"
+  },
+  "proposals": {
+    "where": "an issue titled 'svgforge loop: proposals', plus the proposals artifact of each run",
+    "who_merges": "a person; the loop never commits and never merges ('ship' means a person merges a validated proposal)"
+  }
+}

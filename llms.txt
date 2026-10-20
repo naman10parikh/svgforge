@@ -1,0 +1,95 @@
+# svgforge
+
+> Diagrams as code: deterministic SVG figures with lint gates, drawn by agents. A figure is a Python spec; svgforge measures and places every label and writes a self-contained SVG, byte for byte the same on every run.
+
+svgforge renders a folder of figure specs into SVGs, with an INDEX.json that holds each figure's full prose description, so an agent can read a figure instead of looking at it. Lint gates fail text under 11px, text outside the canvas, glyphs that render as boxes, empty alt text, a collapsed canvas and broken XML. It is standard-library Python and calls no model.
+
+Run it from GitHub with no clone: `uvx --from git+https://github.com/naman10parikh/svgforge svgforge --help` for the command line and `uvx --from git+https://github.com/naman10parikh/svgforge svgforge-mcp` for the MCP server (stdio). Paths below are relative to the repository root.
+
+## Start here
+
+- [AGENTS.md](AGENTS.md): what svgforge does, every command and MCP tool, the skills, the house rules and what not to do.
+- [CLAUDE.md](CLAUDE.md): Claude Code notes (the lint hook, the development MCP config); it imports AGENTS.md.
+- [README.md](README.md): what it is, the quick start and how to install it in any coding agent.
+- [AUTHORING.md](AUTHORING.md): how to write a figure spec, the full drawing API and the seven house rules.
+
+## Identity
+
+- [identity/SOUL.md](identity/SOUL.md): who Svgforge is, what it does and what it refuses.
+- [identity/BRAND.md](identity/BRAND.md): the name's reason, the tagline and the look.
+- [identity/HEARTBEAT.md](identity/HEARTBEAT.md): what is checked, how often, and what happens on an anomaly.
+- [.well-known/agent-card.json](.well-known/agent-card.json): the A2A agent card.
+
+## Command line (`svgforge`)
+
+- [src/svgforge/cli.py](src/svgforge/cli.py): the entry point. Commands:
+  - `svgforge build [figures] [--out diagrams] [--only ID ...] [--check] [--json]`: render, lint, and write INDEX.json and a gallery; `--check` fails on stale files.
+  - `svgforge lint FILE.svg ... [--json]`: run the lint gates on any SVG.
+  - `svgforge demo [--out DIR]`: render the three bundled example figures.
+  - `svgforge find TERMS ... [--index FILE]` and `svgforge show ID [--index FILE]`: search and read a figure store.
+  - `svgforge route "TASK"`: the skill and the command for a task.
+  - `svgforge runs [--last N]`: the run log.
+
+## MCP server (`svgforge-mcp`, stdio)
+
+- [src/svgforge/mcp_server.py](src/svgforge/mcp_server.py): five tools:
+  - `svgforge_list`: every figure's id, title and document.
+  - `svgforge_get`: one figure's record with its full alt text.
+  - `svgforge_search`: figures whose title or alt text holds every term.
+  - `svgforge_lint`: the lint gates on a file or an SVG string.
+  - `svgforge_build`: render a folder of specs, or check it for stale files.
+- [.mcp.json](.mcp.json): the config any MCP client can copy; it starts the server from GitHub. The development config is `.mcp.dev.json`.
+
+## Engine
+
+- [src/svgforge/canvas.py](src/svgforge/canvas.py): the Canvas: cards, bands, arrows, sequences, curves, fans, layer bands, brackets.
+- [src/svgforge/tokens.py](src/svgforge/tokens.py): colours, tones and the glyphs that render as boxes.
+- [src/svgforge/text.py](src/svgforge/text.py): the width table, measuring and wrapping.
+- [src/svgforge/lint.py](src/svgforge/lint.py): the seven lint rules.
+- [src/svgforge/build.py](src/svgforge/build.py): loading specs, rendering, INDEX.json and the gallery.
+- [src/svgforge/examples/](src/svgforge/examples/): the three example specs (pipeline, loop, stack).
+
+## Skills
+
+- [skills/draw-a-figure/SKILL.md](skills/draw-a-figure/SKILL.md): draw a new figure, from search to a lint-clean SVG that has been looked at.
+- [skills/ascii-to-figure/SKILL.md](skills/ascii-to-figure/SKILL.md): turn an ASCII diagram in a document into a figure, keeping every fact.
+- [skills/figure-review/SKILL.md](skills/figure-review/SKILL.md): review figures for legibility and honesty, ending in a verdict table.
+
+## Sub-agents
+
+- [.claude/agents/figure-author.md](.claude/agents/figure-author.md): writes or updates a spec and renders it.
+- [.claude/agents/figure-critic.md](.claude/agents/figure-critic.md): reviews rendered figures and changes nothing.
+
+## Memory
+
+- [memory/MEMORY.md](memory/MEMORY.md): the short bootstrap: invariants, where things are, decisions.
+- [memory/LEARNINGS.md](memory/LEARNINGS.md): every mistake, written as a rule.
+- [scripts/memory_search.py](scripts/memory_search.py): BM25 search over the memory, identity, skills and guides.
+
+## Evals and self-improvement
+
+- [evals/run.py](evals/run.py): structural checks, golden tasks and an MCP round trip; exits 1 on any failure.
+- [evals/golden.json](evals/golden.json): the golden tasks for the lint gates.
+- [evals/loop.py](evals/loop.py): the nightly loop: evals, a corpus read, and proposals; it never commits.
+- [dsip.json](dsip.json): the self-improvement contract.
+- [.github/workflows/ci.yml](.github/workflows/ci.yml): tests and evals on every push and pull request.
+- [.github/workflows/loop.yml](.github/workflows/loop.yml): the scheduled loop; it opens or updates one issue when it has a proposal.
+
+## Install surfaces
+
+- [.claude-plugin/plugin.json](.claude-plugin/plugin.json): the Claude Code plugin (skills, sub-agents, the lint hook, the MCP server).
+- [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json): the one-plugin marketplace.
+- [hooks/hooks.json](hooks/hooks.json): the plugin's hook, the lint gate after Write and Edit.
+- [gemini-extension.json](gemini-extension.json): the Gemini CLI extension.
+
+## Examples
+
+- [examples/README.md](examples/README.md): the three example figures, rendered.
+- [examples/INDEX.json](examples/INDEX.json): their index, with full descriptions.
+
+## Optional
+
+- [sandbox/run_in_sandbox.py](sandbox/run_in_sandbox.py): run the evals in an E2B sandbox (a billed call, only with `--boot`).
+- [SECURITY.md](SECURITY.md): how to report a vulnerability.
+- [CONTRIBUTING.md](CONTRIBUTING.md): how to contribute.
+- [LICENSE](LICENSE): MIT.

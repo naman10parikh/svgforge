@@ -1,0 +1,16 @@
+{
+  "name": "svgforge",
+  "version": "0.1.0",
+  "description": "Diagrams as code: deterministic SVG figures with lint gates, drawn by agents.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "svgforge": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/naman10parikh/svgforge",
+        "svgforge-mcp"
+      ]
+    }
+  }
+}
